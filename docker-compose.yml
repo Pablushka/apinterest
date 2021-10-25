@@ -1,0 +1,40 @@
+version: "3.2"
+
+volumes:
+  db-data:
+    external: false
+
+services:
+  db:
+    environment:
+      MYSQL_ROOT_PASSWORD: secreto!
+      MYSQL_DATABASE: munku_dev
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - 3306:3306
+    volumes:
+      - ../docker-dbs/rails_tutorial-data:/var/lib/mysql
+
+  app:
+    environment:
+      - APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=no_wrnings
+    image: nomades/apinterest:latest
+    build: .
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    #command: bash -c "yarn install --check-files && rm -f tmp/pids/server.pid && ./bin/server"
+    command: tail -f ./docker-compose.yml
+    ports:
+      - 5000:5000
+      - 8080:8080
+    volumes:
+      - ./:/app
+      - type: tmpfs
+        target: /tmp_sprockets
+      - ./.vscode-ext:/root/.vscode-server/extensions
+      - ./.vscode-insiders-ext:/root/.vscode-server-insiders/extensions        
+    depends_on:
+      - db
