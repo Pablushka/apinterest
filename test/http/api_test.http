@@ -1,0 +1,14 @@
+
+# Pedir data al servidor
+GET http://localhost:5000/calculo HTTP/1.1
+
+###
+
+POST http://localhost:5000/calculo HTTP/1.1
+content-type: application/json
+
+{
+    "numeroA": 15,
+    "numeroB": 16,
+    "user": "administrator"
+}
