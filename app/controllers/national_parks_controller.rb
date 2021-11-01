@@ -1,3 +1,4 @@
+require 'csv'
 class NationalParksController < ApplicationController
   before_action :set_national_park, only: [:show, :update, :destroy]
 
@@ -36,6 +37,14 @@ class NationalParksController < ApplicationController
   # DELETE /national_parks/1
   def destroy
     @national_park.destroy
+  end
+
+  # GET /list national_parks
+  def list_parks
+    table = CSV.parse(File.read("/app/lib/data/national_parks.csv"), headers: true)
+    print(table)
+    render json: table
+    
   end
 
   private
