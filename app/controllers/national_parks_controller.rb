@@ -41,8 +41,7 @@ class NationalParksController < ApplicationController
 
   # GET /list national_parks
   def list_parks
-    table = CSV.parse(File.read("/app/lib/data/national_parks.csv"), headers: true)
-    print(table)
+    table = CSV.parse(File.read("../../app/lib/data/national_parks_argentina.csv"), headers: true)
     render json: table
     
   end
