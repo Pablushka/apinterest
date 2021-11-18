@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/calculo', to: 'pablito#suma_random'
   post '/calculo', to: 'pablito#sumar'
 
-  get '/parques', to: 'national_parks#list_parks'
+  post '/parques', to: 'national_parks#list_parks'
 
   # post '/guardar_formulario', to: 'controller#action'
   # delete '/borrar_usuario/:id', to: 'controller#action'

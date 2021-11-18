@@ -40,10 +40,15 @@ class NationalParksController < ApplicationController
   end
 
   # GET /list national_parks
-  def list_parks
+  def list_parks()
+    lugar = "Provincia de "+national_park_params[:province]
+    # nombre =  national_park_params[:name]
+
     table = CSV.parse(File.read("../../app/lib/data/national_parks_argentina.csv"), headers: true)
-    render json: table
-    
+
+    province_park_list = table.select { |row| row['Lugar'] == lugar }    
+    #csv.select { |row| row['GENDER'] == 'MALE' || row['SALARY'] >= 10000 }
+    render json: {listado: province_park_list, objetos: province_park_list.count}
   end
 
   private
@@ -54,6 +59,8 @@ class NationalParksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def national_park_params
-      params.require(:national_park).permit(:name)
+      params.require(:parque_nacional).permit(:province, :name, :region)
     end
+
+
 end

@@ -12,3 +12,18 @@ content-type: application/json
     "numeroB": 16,
     "user": "administrator"
 }
+
+###
+
+
+
+POST http://localhost:5000/parques HTTP/1.1
+content-type: application/json
+
+{
+    "parque_nacional" : {
+        "province": "Salta",
+        "name": "Nahuel Papi",
+        "region": "Región NOA"
+    }
+}
